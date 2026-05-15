@@ -35,7 +35,7 @@ Postman published documentation: [Documentation](https://documenter.getpostman.c
 2. ## 🧾 Test Cases
 Test Cases here: [Test_Case_Document](https://docs.google.com/spreadsheets/d/1LP3woIQPpDCe4W9cZ3WS52WcOiDOZbFV/edit?usp=sharing&ouid=114831411539983234280&rtpof=true&sd=true)
 
-4. ## Report
+3. ## Report
 
 
 ![Test Result](./Output/image1.png)
