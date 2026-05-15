@@ -27,15 +27,14 @@ The project also supports command-line execution using Newman for CI/CD integrat
 - JavaScript (Postman scripting) — Used to write test scripts, assertions, and automate workflows 
 
 ---
-1. ## 📄 API Documentation
+## 1. 📄 API Documentation
 
 Postman published documentation: [Documentation](https://documenter.getpostman.com/view/52925547/2sBXqQFHkL)
 
-
-2. ## 🧾 Test Cases
+## 2. 🧾 Test Cases
 Test Cases here: [Test_Case_Document](https://docs.google.com/spreadsheets/d/1LP3woIQPpDCe4W9cZ3WS52WcOiDOZbFV/edit?usp=sharing&ouid=114831411539983234280&rtpof=true&sd=true)
 
-3. ## Report
+## 3. Report
 
 
 ![Test Result](./Output/image11.png)
