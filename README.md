@@ -42,6 +42,6 @@ Test cases here:
 3. ## Report
 
 
-[Test Result](./Output/image1.png)
+![Test Result](./Output/image1.png)
    
 
