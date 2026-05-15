@@ -45,20 +45,20 @@ Test Cases here: [Test_Case_Document](https://docs.google.com/spreadsheets/d/1LP
 
 Follow the steps below to run the project locally:
 
-### Clone the Repository
+### 1. Clone the Repository
 ```bash
 git clone https://github.com/Ummejami/DMONEY_API-by-Potman.git
 cd DMONEY_API-by-Potman
 ```
-### Install Dependencies
+### 2. Install Dependencies
 ```bash
 npm install
 ```
-### Configure Environment Variable
+### 3. Configure Environment Variable
 1. Create a .env file in the project root directory
 2. Add necessary environment variables (G_API)
 
-### Run The Test
+### 4. Run The Test
 ```bash
 npm test
 ```
