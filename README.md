@@ -1,7 +1,7 @@
 #  DMONEY REST API Testing (Postman)
 
 ##  Overview
-This project demonstrates automated testing of the **DMoney REST API** using Postman. It includes API test cases for authentication, user management, and financial transactions such as Send Money, Cash-In, and Payments.
+This project demonstrates automated testing of the **DMoney REST API** using Postman. It includes API test cases for authentication, user management, and financial transactions such as Send Money, Deposit, and Withdraw.
 
 The project also supports command-line execution using Newman for CI/CD integration.
 
