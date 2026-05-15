@@ -1,0 +1,4558 @@
+{
+  "info": {
+    "_postman_id": "cda7afc4-6881-453e-b699-445ef41947d4",
+    "name": "Dmoney_API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "52925547",
+    "_collection_link": "https://go.postman.co/collection/52925547-cda7afc4-6881-453e-b699-445ef41947d4?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Admin_Login",
+      "item": [
+        {
+          "name": "Unsuccessful_login(username)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "var data = pm.response.json();\r",
+                  "pm.test(\"Login Failed\", ()=>{\r",
+                  "    pm.expect(data.message).to.contain(\"User not found\");\r",
+                  "})\r",
+                  "pm.test(\"Status code is 404\", function () {\r",
+                  "    pm.response.to.have.status(404);\r",
+                  "})"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"email\": \"ad@dmoney.com\",\r\n  \"password\": \"1234\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:5000/user/login",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "user",
+                "login"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "missing or invalid login data",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "var data = pm.response.json();\r",
+                  "pm.test(\"Login Failed\", ()=>{\r",
+                  "    pm.expect(data.message).to.contain(\"Please provide either email or phone_number along with password\");\r",
+                  "})\r",
+                  "pm.test(\"Status code is 400\", function () {\r",
+                  "    pm.response.to.have.status(400);\r",
+                  "})"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"email\": \"ad@dmoney.com\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:5000/user/login",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "user",
+                "login"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Unsuccessful_login(password)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "var data = pm.response.json();\r",
+                  "pm.test(\"Login Failed\", ()=>{\r",
+                  "    pm.expect(data.message).to.contain(\"Password incorrect\");\r",
+                  "})\r",
+                  "pm.test(\"Status code is 401\", function () {\r",
+                  "    pm.response.to.have.status(401);\r",
+                  "})"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"email\": \"admin@dmoney.com\",\r\n  \"password\": \"123456\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:5000/user/login",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "user",
+                "login"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Wrong http request",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "var data = pm.response.json();\r",
+                  "\r",
+                  "pm.test(\"Wrong http request\", () => {\r",
+                  "    pm.expect(data.error.message).to.contain(\"GET /user/login Not Found\");\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Status code is 404\", function () {\r",
+                  "    pm.response.to.have.status(404);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"email\": \"admin@dmoney.com\",\r\n  \"password\": \"123456\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:5000/user/login",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "user",
+                "login"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Internal Server error",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "var data = pm.response.json();\r",
+                  "\r",
+                  "pm.test(\"Wrong http request\", () => {\r",
+                  "    pm.expect(data.message).to.contain(\"An error occurred while processing the request:\");\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Status code is 500\", function () {\r",
+                  "    pm.response.to.have.status(500);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"email\": \"admin@dmoney.com\",\r\n  \"password\": true\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:5000/user/login",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "user",
+                "login"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Admin Login",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "var data = pm.response.json();\r",
+                  "var adtoken = data.token;\r",
+                  "pm.collectionVariables.set(\"admintoken\",adtoken); \r",
+                  "\r",
+                  "pm.test(\"Login Successful\", ()=>{\r",
+                  "    pm.expect(data.message).to.contain(\"Login successful\");\r",
+                  "})\r",
+                  "pm.test(\"Status code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "})"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"email\": \"admin@dmoney.com\",\r\n  \"password\": \"1234\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:5000/user/login",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "user",
+                "login"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Users_Create(Self)",
+      "item": [
+        {
+          "name": "Agent",
+          "item": [
+            {
+              "name": "Agent_Successful_registration",
+              "event": [
+                {
+                  "listen": "prerequest",
+                  "script": {
+                    "exec": [
+                      "var randomID = _.random(10000,99999);\r",
+                      "var phone = \"017123\" + randomID;\r",
+                      "\r",
+                      "pm.collectionVariables.set(\"ID\",randomID);\r",
+                      "pm.collectionVariables.set(\"Phone\",phone);"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                },
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "var data = pm.response.json(); \r",
+                      "pm.test(\"Agent created\", ()=>{\r",
+                      "    pm.expect(data.message).to.contain(\"Registration successful. Your account is pending approval by an admin.\");\r",
+                      "})\r",
+                      "pm.test(\"Status code is 201\", function () {\r",
+                      "    pm.response.to.have.status(201);\r",
+                      "})\r",
+                      "\r",
+                      "var AgentID = data.user.id;\r",
+                      "var Agentmail = data.user.email;\r",
+                      "var Agentphn = data.user.phone_number;\r",
+                      "pm.collectionVariables.set(\"AgentID\",AgentID);\r",
+                      "pm.collectionVariables.set(\"Agentmail\",Agentmail);\r",
+                      "pm.collectionVariables.set(\"AgenttNum\",Agentphn);"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"name\": \"Umme Jami Era\",\r\n  \"email\": \"ummejami504+{{ID}}@gmail.com\",\r\n  \"password\": \"123456\",\r\n  \"phone_number\": \"{{Phone}}\",\r\n  \"nid\": \"9876543210\",\r\n  \"role\": \"Agent\"\r\n}\r\n",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:5000/user/register",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "5000",
+                  "path": [
+                    "user",
+                    "register"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Invalid_gmail_format",
+              "event": [
+                {
+                  "listen": "prerequest",
+                  "script": {
+                    "exec": [
+                      "var randomID = _.random(100,999);\r",
+                      "var phone = \"01711456\" + randomID;\r",
+                      "\r",
+                      "pm.collectionVariables.set(\"ID\",randomID);\r",
+                      "pm.collectionVariables.set(\"Phone\",phone);"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                },
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "var data = pm.response.json(); \r",
+                      "pm.test(\"Invalid Gmail\", ()=>{\r",
+                      "    pm.expect(data.message).to.contain(\"Only Gmail addresses (@gmail.com) are accepted for registration.\");\r",
+                      "})\r",
+                      "pm.test(\"Status code is 400\", function () {\r",
+                      "    pm.response.to.have.status(400);\r",
+                      "})\r",
+                      ""
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"name\": \"Umme Jami Era\",\r\n  \"email\": \"ummejami504+{{ID}}@yahoo.com\",\r\n  \"password\": \"123456\",\r\n  \"phone_number\": \"{{Phone}}\",\r\n  \"nid\": \"9876543210\",\r\n  \"role\": \"Agent\"\r\n}\r\n",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:5000/user/register",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "5000",
+                  "path": [
+                    "user",
+                    "register"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Invalid role",
+              "event": [
+                {
+                  "listen": "prerequest",
+                  "script": {
+                    "exec": [
+                      "var randomID = _.random(100,999);\r",
+                      "var phone = \"01711456\" + randomID;\r",
+                      "\r",
+                      "pm.collectionVariables.set(\"ID\",randomID);\r",
+                      "pm.collectionVariables.set(\"Phone\",phone);"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                },
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "var data = pm.response.json(); \r",
+                      "pm.test(\"Invalid Role\", ()=>{\r",
+                      "    pm.expect(data.message).to.contain(\"Role must be one of: Customer, Agent, Merchant\");\r",
+                      "})\r",
+                      "pm.test(\"Status code is 400\", function () {\r",
+                      "    pm.response.to.have.status(400);\r",
+                      "})\r",
+                      ""
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"name\": \"Umme Jami Era\",\r\n  \"email\": \"ummejami504+{{ID}}@gmail.com\",\r\n  \"password\": \"123456\",\r\n  \"phone_number\": \"{{Phone}}\",\r\n  \"nid\": \"9876543210\",\r\n  \"role\": \"Admin\"\r\n}\r\n",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:5000/user/register",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "5000",
+                  "path": [
+                    "user",
+                    "register"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Invalid_NID",
+              "event": [
+                {
+                  "listen": "prerequest",
+                  "script": {
+                    "exec": [
+                      "var randomID = _.random(100,999);\r",
+                      "var phone = \"01711456\" + randomID;\r",
+                      "\r",
+                      "pm.collectionVariables.set(\"ID\",randomID);\r",
+                      "pm.collectionVariables.set(\"Phone\",phone);"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                },
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "var data = pm.response.json(); \r",
+                      "pm.test(\"Invalid NID\", ()=>{\r",
+                      "    pm.expect(data.message).to.contain(\"\\\"nid\\\" length must be less than or equal to 13 characters long\");\r",
+                      "})\r",
+                      "pm.test(\"Status code is 400\", function () {\r",
+                      "    pm.response.to.have.status(400);\r",
+                      "})\r",
+                      ""
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"name\": \"Umme Jami Era\",\r\n  \"email\": \"ummejami504+{{ID}}@gmail.com\",\r\n  \"password\": \"123456\",\r\n  \"phone_number\": \"{{Phone}}\",\r\n  \"nid\": \"98765432101111111111\",\r\n  \"role\": \"Agent\"\r\n}\r\n",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:5000/user/register",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "5000",
+                  "path": [
+                    "user",
+                    "register"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Duplicate_Phone_number",
+              "event": [
+                {
+                  "listen": "prerequest",
+                  "script": {
+                    "exec": [
+                      "var randomID = _.random(100,999);\r",
+                      "var phone = \"01711456\" + randomID;\r",
+                      "\r",
+                      "pm.collectionVariables.set(\"ID\",randomID);\r",
+                      "pm.collectionVariables.set(\"Phone\",phone);"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                },
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "var data = pm.response.json(); \r",
+                      "pm.test(\"An account with this phone number exist\", ()=>{\r",
+                      "    pm.expect(data.message).to.contain(\"An account with this phone number already exists\");\r",
+                      "})\r",
+                      "pm.test(\"Status code is 208\", function () {\r",
+                      "    pm.response.to.have.status(208);\r",
+                      "})\r",
+                      ""
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"name\": \"Umme Jami Era\",\r\n  \"email\": \"ummejami504+{{ID}}@gmail.com\",\r\n  \"password\": \"123456\",\r\n  \"phone_number\": \"{{AgenttNum}}\",\r\n  \"nid\": \"9876543210\",\r\n  \"role\": \"Agent\"\r\n}\r\n",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:5000/user/register",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "5000",
+                  "path": [
+                    "user",
+                    "register"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Incorrect phone number format",
+              "event": [
+                {
+                  "listen": "prerequest",
+                  "script": {
+                    "exec": [
+                      "var randomID = _.random(100,999);\r",
+                      "var phone = \"01711456\" + randomID;\r",
+                      "\r",
+                      "pm.collectionVariables.set(\"ID\",randomID);\r",
+                      "pm.collectionVariables.set(\"Phone\",phone);"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                },
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "var data = pm.response.json(); \r",
+                      "pm.test(\"Incorrect phone number format\", ()=>{\r",
+                      "    pm.expect(data.error.message).to.contain(\"Unexpected token 'a', ...\\\"_number\\\": abcer,\\r\\n  \\\"... is not valid JSON\");\r",
+                      "})\r",
+                      "pm.test(\"Status code is 400\", function () {\r",
+                      "    pm.response.to.have.status(400);\r",
+                      "})\r",
+                      ""
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"name\": \"Umme Jami Era\",\r\n  \"email\": \"ummejami504+{{ID}}@gmail.com\",\r\n  \"password\": \"123456\",\r\n  \"phone_number\": abcer,\r\n  \"nid\": \"9876543210\",\r\n  \"role\": \"Agent\"\r\n}\r\n",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:5000/user/register",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "5000",
+                  "path": [
+                    "user",
+                    "register"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Duplicate_email",
+              "event": [
+                {
+                  "listen": "prerequest",
+                  "script": {
+                    "exec": [
+                      "var randomID = _.random(100,999);\r",
+                      "var phone = \"01711456\" + randomID;\r",
+                      "\r",
+                      "pm.collectionVariables.set(\"ID\",randomID);\r",
+                      "pm.collectionVariables.set(\"Phone\",phone);"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                },
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "var data = pm.response.json(); \r",
+                      "pm.test(\"An account with this email exist\", ()=>{\r",
+                      "    pm.expect(data.message).to.contain(\"An account with this email already exists\");\r",
+                      "})\r",
+                      "pm.test(\"Status code is 208\", function () {\r",
+                      "    pm.response.to.have.status(208);\r",
+                      "})\r",
+                      ""
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"name\": \"Umme Jami Era\",\r\n  \"email\": \"{{Agentmail}}\",\r\n  \"password\": \"123456\",\r\n  \"phone_number\": \"01711456211\",\r\n  \"nid\": \"9876543210\",\r\n  \"role\": \"Agent\"\r\n}\r\n",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:5000/user/register",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "5000",
+                  "path": [
+                    "user",
+                    "register"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Agent_demo",
+              "event": [
+                {
+                  "listen": "prerequest",
+                  "script": {
+                    "exec": [
+                      "var randomID = _.random(100000000,999999999);\r",
+                      "var phone = \"01\" + randomID;\r",
+                      "\r",
+                      "pm.collectionVariables.set(\"ID\",randomID);\r",
+                      "pm.collectionVariables.set(\"Phone\",phone);"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                },
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "var data = pm.response.json(); \r",
+                      "pm.test(\"Agent created\", ()=>{\r",
+                      "    pm.expect(data.message).to.contain(\"Registration successful. Your account is pending approval by an admin.\");\r",
+                      "})\r",
+                      "pm.test(\"Status code is 201\", function () {\r",
+                      "    pm.response.to.have.status(201);\r",
+                      "})\r",
+                      "\r",
+                      "var AgentID = data.user.id;\r",
+                      "var Agentmail = data.user.email;\r",
+                      "var Agentphn = data.user.phone_number;\r",
+                      "pm.collectionVariables.set(\"Agentdemo\",AgentID);\r",
+                      "pm.collectionVariables.set(\"Agentmaildemo\",Agentmail);\r",
+                      "pm.collectionVariables.set(\"AgenttNumdemo\",Agentphn);"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"name\": \"Maishuri\",\r\n  \"email\": \"ummejami504+{{ID}}@gmail.com\",\r\n  \"password\": \"123456\",\r\n  \"phone_number\": \"{{Phone}}\",\r\n  \"nid\": \"9876543210\",\r\n  \"role\": \"Agent\"\r\n}\r\n",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:5000/user/register",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "5000",
+                  "path": [
+                    "user",
+                    "register"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Same_NID With different Name",
+              "event": [
+                {
+                  "listen": "prerequest",
+                  "script": {
+                    "exec": [
+                      "var randomID = _.random(100,999);\r",
+                      "var phone = \"01711456\" + randomID;\r",
+                      "\r",
+                      "pm.collectionVariables.set(\"ID\",randomID);\r",
+                      "pm.collectionVariables.set(\"Phone\",phone);"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                },
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      ""
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"name\": \"Rose\",\r\n  \"email\": \"ummejami7@gmail.com\",\r\n  \"password\": \"123456\",\r\n  \"phone_number\": \"{{Phone}}\",\r\n  \"nid\": \"9876543210\",\r\n  \"role\": \"Agent\"\r\n}\r\n",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:5000/user/register",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "5000",
+                  "path": [
+                    "user",
+                    "register"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Customer",
+          "item": [
+            {
+              "name": "Custome(1)_Successful_Registration",
+              "event": [
+                {
+                  "listen": "prerequest",
+                  "script": {
+                    "exec": [
+                      "var randomID = _.random(100,999);\r",
+                      "var phone = \"01711456\" + randomID;\r",
+                      "\r",
+                      "pm.collectionVariables.set(\"ID\",randomID);\r",
+                      "pm.collectionVariables.set(\"Phone\",phone);"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                },
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "var data = pm.response.json(); \r",
+                      "pm.test(\"Customer created\", ()=>{\r",
+                      "    pm.expect(data.message).to.contain(\"Registration successful. Your account is pending approval by an admin.\");\r",
+                      "})\r",
+                      "pm.test(\"Status code is 201\", function () {\r",
+                      "    pm.response.to.have.status(201);\r",
+                      "})\r",
+                      "var CusID = data.user.id;\r",
+                      "var Cusmail = data.user.email;\r",
+                      "var Cusphn = data.user.phone_number;\r",
+                      "pm.collectionVariables.set(\"Customer(1)ID\",CusID);\r",
+                      "pm.collectionVariables.set(\"Customer(1)mail\",Cusmail);\r",
+                      "pm.collectionVariables.set(\"Customer(1)phone\",Cusphn);\r",
+                      ""
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"name\": \"Umme Habiba Ekra\",\r\n  \"email\": \"ummejami504+{{ID}}@gmail.com\",\r\n  \"password\": \"123456\",\r\n  \"phone_number\": \"{{Phone}}\",\r\n  \"nid\": \"9876543210\",\r\n  \"role\": \"Customer\"\r\n}\r\n",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:5000/user/register",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "5000",
+                  "path": [
+                    "user",
+                    "register"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Custome(2)_Successful_Registration",
+              "event": [
+                {
+                  "listen": "prerequest",
+                  "script": {
+                    "exec": [
+                      "var randomID = _.random(1000,9999);\r",
+                      "var phone = \"0171145\" + randomID;\r",
+                      "\r",
+                      "pm.collectionVariables.set(\"ID\",randomID);\r",
+                      "pm.collectionVariables.set(\"Phone\",phone);"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                },
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "var data = pm.response.json(); \r",
+                      "pm.test(\"Customer created\", ()=>{\r",
+                      "    pm.expect(data.message).to.contain(\"Registration successful. Your account is pending approval by an admin.\");\r",
+                      "})\r",
+                      "pm.test(\"Status code is 201\", function () {\r",
+                      "    pm.response.to.have.status(201);\r",
+                      "})\r",
+                      "var CusID = data.user.id;\r",
+                      "var Cusmail = data.user.email;\r",
+                      "var Cusphn = data.user.phone_number;\r",
+                      "pm.collectionVariables.set(\"Customer(2)ID\",CusID);\r",
+                      "pm.collectionVariables.set(\"Customer(2)mail\",Cusmail);\r",
+                      "pm.collectionVariables.set(\"Customer(2)phone\",Cusphn);\r",
+                      ""
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"name\": \"Roseline Berry\",\r\n  \"email\": \"ummejami504+{{ID}}@gmail.com\",\r\n  \"password\": \"123456\",\r\n  \"phone_number\": \"{{Phone}}\",\r\n  \"nid\": \"9876543210\",\r\n  \"role\": \"Customer\"\r\n}\r\n",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:5000/user/register",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "5000",
+                  "path": [
+                    "user",
+                    "register"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Customer with Agent email",
+              "event": [
+                {
+                  "listen": "prerequest",
+                  "script": {
+                    "exec": [
+                      "var randomID = _.random(100,999);\r",
+                      "var phone = \"01711456\" + randomID;\r",
+                      "\r",
+                      "pm.collectionVariables.set(\"ID\",randomID);\r",
+                      "pm.collectionVariables.set(\"Phone\",phone);"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                },
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "var data = pm.response.json(); \r",
+                      "pm.test(\"An account with this email exists\", ()=>{\r",
+                      "    pm.expect(data.message).to.contain(\"An account with this email already exists\");\r",
+                      "})\r",
+                      "pm.test(\"Status code is 208\", function () {\r",
+                      "    pm.response.to.have.status(208);\r",
+                      "})\r",
+                      "\r",
+                      ""
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"name\": \"Umme Habiba Ekra\",\r\n  \"email\": \"{{Agentmail}}\",\r\n  \"password\": \"123456\",\r\n  \"phone_number\": \"{{Phone}}\",\r\n  \"nid\": \"9876543210\",\r\n  \"role\": \"Customer\"\r\n}\r\n",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:5000/user/register",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "5000",
+                  "path": [
+                    "user",
+                    "register"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Customer with Agent  Phone Number",
+              "event": [
+                {
+                  "listen": "prerequest",
+                  "script": {
+                    "exec": [
+                      "var randomID = _.random(100,999);\r",
+                      "var phone = \"01711456\" + randomID;\r",
+                      "\r",
+                      "pm.collectionVariables.set(\"ID\",randomID);\r",
+                      "pm.collectionVariables.set(\"Phone\",phone);"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                },
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "var data = pm.response.json(); \r",
+                      "pm.test(\"An account with this email exists\", ()=>{\r",
+                      "    pm.expect(data.message).to.contain(\"An account with this phone number already exists\");\r",
+                      "})\r",
+                      "pm.test(\"Status code is 208\", function () {\r",
+                      "    pm.response.to.have.status(208);\r",
+                      "})\r",
+                      "\r",
+                      ""
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"name\": \"Umme Habiba Ekra\",\r\n  \"email\": \"ummejami5045@gmail.com\",\r\n  \"password\": \"123456\",\r\n  \"phone_number\": \"{{AgenttNum}}\",\r\n  \"nid\": \"9876543210\",\r\n  \"role\": \"Customer\"\r\n}\r\n",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:5000/user/register",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "5000",
+                  "path": [
+                    "user",
+                    "register"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "User Activation",
+      "item": [
+        {
+          "name": "Secret key error",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "var data = pm.response.json(); \r",
+                  "pm.test(\"Secret auth key validation failure\", ()=>{\r",
+                  "    pm.expect(data.message).to.contain(\"Secret auth key validation failure!\");\r",
+                  "})\r",
+                  "pm.test(\"Status code is 401\", function () {\r",
+                  "    pm.response.to.have.status(401);\r",
+                  "})\r",
+                  "\r",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Barear {{admintoken}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n   \"status\": \"active\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:5000/user/update/{{Customer(1)ID}}",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "user",
+                "update",
+                "{{Customer(1)ID}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Unauthorized to Update User",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "var data = pm.response.json(); \r",
+                  "pm.test(\"Unauthorized\", ()=>{\r",
+                  "    pm.expect(data.message).to.contain(\"No Token Found!\");\r",
+                  "})\r",
+                  "pm.test(\"Status code is 401\", function () {\r",
+                  "    pm.response.to.have.status(401);\r",
+                  "})\r",
+                  "\r",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "X-AUTH-SECRET-KEY",
+                "value": "ROADTOSDET",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n   \"status\": \"active\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:5000/user/update/{{Customer(1)ID}}",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "user",
+                "update",
+                "{{Customer(1)ID}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Invalid format",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "var data = pm.response.json(); \r",
+                  "pm.test(\"Invalid format\", ()=>{\r",
+                  "    pm.expect(data.error.message).to.contain(\"Unexpected token 'a', ...\\\"\\\"status\\\": active\\r\\n}\\\" is not valid JSON\");\r",
+                  "})\r",
+                  "pm.test(\"Status code is 400\", function () {\r",
+                  "    pm.response.to.have.status(400);\r",
+                  "})\r",
+                  "\r",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Barear {{admintoken}}",
+                "type": "text"
+              },
+              {
+                "key": "X-AUTH-SECRET-KEY",
+                "value": "ROADTOSDET",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n   \"status\": active\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:5000/user/update/{{Customer(1)ID}}",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "user",
+                "update",
+                "{{Customer(1)ID}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Activation_AGENT",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Barear {{admintoken}}",
+                "type": "text"
+              },
+              {
+                "key": "X-AUTH-SECRET-KEY",
+                "value": "ROADTOSDET",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"status\": \"active\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:5000/user/update/{{AgentID}}",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "user",
+                "update",
+                "{{AgentID}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Activation_Customer_2",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Barear {{admintoken}}",
+                "type": "text"
+              },
+              {
+                "key": "X-AUTH-SECRET-KEY",
+                "value": "ROADTOSDET",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n   \"status\": \"active\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:5000/user/update/{{Customer(2)ID}}",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "user",
+                "update",
+                "{{Customer(2)ID}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Activation_Customer_1",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Barear {{admintoken}}",
+                "type": "text"
+              },
+              {
+                "key": "X-AUTH-SECRET-KEY",
+                "value": "ROADTOSDET",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n   \"status\": \"active\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:5000/user/update/{{Customer(1)ID}}",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "user",
+                "update",
+                "{{Customer(1)ID}}"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "User Login",
+      "item": [
+        {
+          "name": "Agent",
+          "item": [
+            {
+              "name": "Successful_Login",
+              "item": [
+                {
+                  "name": "Agent Login",
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "exec": [
+                          "var data = pm.response.json(); \r",
+                          "pm.test(\"An account with this email exist\", ()=>{\r",
+                          "    pm.expect(data.message).to.contain(\"OTP sent to your registered email address\");\r",
+                          "})\r",
+                          "pm.test(\"Status code is 200\", function () {\r",
+                          "    pm.response.to.have.status(200);\r",
+                          "})\r",
+                          ""
+                        ],
+                        "type": "text/javascript",
+                        "packages": {},
+                        "requests": {}
+                      }
+                    }
+                  ],
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "",
+                        "value": "",
+                        "type": "text"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n  \"email\": \"{{Agentmail}}\",\r\n  \"password\": \"123456\"\r\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "http://localhost:5000/user/login",
+                      "protocol": "http",
+                      "host": [
+                        "localhost"
+                      ],
+                      "port": "5000",
+                      "path": [
+                        "user",
+                        "login"
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "Gmail_list",
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "exec": [
+                          "let jsondata = pm.response.json();\r",
+                          "let latestemail = jsondata.messages[0].id;\r",
+                          "pm.collectionVariables.set(\"emailID\",latestemail);\r",
+                          ""
+                        ],
+                        "type": "text/javascript",
+                        "packages": {},
+                        "requests": {}
+                      }
+                    }
+                  ],
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "oauth2"
+                    },
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Authorization",
+                        "value": "Bearer {{G_api}}",
+                        "type": "text"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "https://gmail.googleapis.com/gmail/v1/users/me/messages",
+                      "protocol": "https",
+                      "host": [
+                        "gmail",
+                        "googleapis",
+                        "com"
+                      ],
+                      "path": [
+                        "gmail",
+                        "v1",
+                        "users",
+                        "me",
+                        "messages"
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "Read_mail",
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "exec": [
+                          "let jsondata = pm.response.json();\r",
+                          "let snippet = jsondata.snippet;\r",
+                          "let otp = snippet.match(/\\b\\d{4}\\b/)[0];\r",
+                          "\r",
+                          "pm.collectionVariables.set(\"OTP\", otp);"
+                        ],
+                        "type": "text/javascript",
+                        "packages": {},
+                        "requests": {}
+                      }
+                    }
+                  ],
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Authorization",
+                        "value": "Bearer {{G_api}}",
+                        "type": "text"
+                      }
+                    ],
+                    "url": {
+                      "raw": "https://gmail.googleapis.com/gmail/v1/users/me/messages/{{emailID}}",
+                      "protocol": "https",
+                      "host": [
+                        "gmail",
+                        "googleapis",
+                        "com"
+                      ],
+                      "path": [
+                        "gmail",
+                        "v1",
+                        "users",
+                        "me",
+                        "messages",
+                        "{{emailID}}"
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "Agent_Verify_with Wrong OTP",
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "exec": [
+                          "let jsondata = pm.response.json();\r",
+                          "\r",
+                          "\r",
+                          "pm.test(\"Status code is 401\", function () {\r",
+                          "    pm.response.to.have.status(401);\r",
+                          "})\r",
+                          "pm.test(\"Invalid OTP\", function () { \r",
+                          "    pm.expect(jsondata.message).to.eql(\"Invalid OTP. Please try again.\");\r",
+                          "})"
+                        ],
+                        "type": "text/javascript",
+                        "packages": {},
+                        "requests": {}
+                      }
+                    }
+                  ],
+                  "request": {
+                    "method": "POST",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n    \"identifier\":\"{{Agentmail}}\",\r\n    \"otp\":\"1234\"\r\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "http://localhost:5000/user/verify-otp",
+                      "protocol": "http",
+                      "host": [
+                        "localhost"
+                      ],
+                      "port": "5000",
+                      "path": [
+                        "user",
+                        "verify-otp"
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "Agent_Verify_OTP",
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "exec": [
+                          "let jsondata = pm.response.json();\r",
+                          "let token = jsondata.token;\r",
+                          "pm.collectionVariables.set(\"agenttoken\", token);\r",
+                          "\r",
+                          "pm.test(\"Status code is 200\", function () {\r",
+                          "    pm.response.to.have.status(200);\r",
+                          "})"
+                        ],
+                        "type": "text/javascript",
+                        "packages": {},
+                        "requests": {}
+                      }
+                    }
+                  ],
+                  "request": {
+                    "method": "POST",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n    \"identifier\":\"{{Agentmail}}\",\r\n    \"otp\":\"{{OTP}}\"\r\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "http://localhost:5000/user/verify-otp",
+                      "protocol": "http",
+                      "host": [
+                        "localhost"
+                      ],
+                      "port": "5000",
+                      "path": [
+                        "user",
+                        "verify-otp"
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "One time OTP validation",
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "exec": [
+                          "let jsondata = pm.response.json();\r",
+                          "\r",
+                          "\r",
+                          "pm.test(\"Status code is 400\", function () {\r",
+                          "    pm.response.to.have.status(400);\r",
+                          "})\r",
+                          "pm.test(\"One time OTP\", function () {\r",
+                          "    pm.expect(jsondata.message).to.contain(\"No OTP found. Please login again to request a new OTP.\");\r",
+                          "})"
+                        ],
+                        "type": "text/javascript",
+                        "packages": {},
+                        "requests": {}
+                      }
+                    }
+                  ],
+                  "request": {
+                    "method": "POST",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n    \"identifier\":\"{{Agentmail}}\",\r\n    \"otp\":\"{{OTP}}\"\r\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "http://localhost:5000/user/verify-otp",
+                      "protocol": "http",
+                      "host": [
+                        "localhost"
+                      ],
+                      "port": "5000",
+                      "path": [
+                        "user",
+                        "verify-otp"
+                      ]
+                    }
+                  },
+                  "response": []
+                }
+              ]
+            },
+            {
+              "name": "Unsuccessful_login",
+              "item": [
+                {
+                  "name": "Wrong email",
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "exec": [
+                          "var data = pm.response.json(); \r",
+                          "pm.test(\"User not found\", ()=>{\r",
+                          "    pm.expect(data.message).to.contain(\"User not found\");\r",
+                          "})\r",
+                          "pm.test(\"Status code is 404\", function () {\r",
+                          "    pm.response.to.have.status(404);\r",
+                          "})\r",
+                          ""
+                        ],
+                        "type": "text/javascript",
+                        "packages": {},
+                        "requests": {}
+                      }
+                    }
+                  ],
+                  "request": {
+                    "method": "POST",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n  \"email\": \"abcd@456\",\r\n  \"password\": \"123456\"\r\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "http://localhost:5000/user/login",
+                      "protocol": "http",
+                      "host": [
+                        "localhost"
+                      ],
+                      "port": "5000",
+                      "path": [
+                        "user",
+                        "login"
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "Wrong password",
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "exec": [
+                          "var data = pm.response.json(); \r",
+                          "pm.test(\"Incorrect Password\", ()=>{\r",
+                          "    pm.expect(data.message).to.contain(\"Password incorrect\");\r",
+                          "})\r",
+                          "pm.test(\"Status code is 401\", function () {\r",
+                          "    pm.response.to.have.status(401);\r",
+                          "})\r",
+                          ""
+                        ],
+                        "type": "text/javascript",
+                        "packages": {},
+                        "requests": {}
+                      }
+                    }
+                  ],
+                  "request": {
+                    "method": "POST",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n  \"email\": \"{{Agentmaildemo}}\",\r\n  \"password\": \"456\"\r\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "http://localhost:5000/user/login",
+                      "protocol": "http",
+                      "host": [
+                        "localhost"
+                      ],
+                      "port": "5000",
+                      "path": [
+                        "user",
+                        "login"
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "Agentdemo login",
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "exec": [
+                          "var data = pm.response.json(); \r",
+                          "pm.test(\"An account with this email exist\", ()=>{\r",
+                          "    pm.expect(data.message).to.contain(\"OTP sent to your registered email address\");\r",
+                          "})\r",
+                          "pm.test(\"Status code is 200\", function () {\r",
+                          "    pm.response.to.have.status(200);\r",
+                          "})\r",
+                          ""
+                        ],
+                        "type": "text/javascript",
+                        "packages": {},
+                        "requests": {}
+                      }
+                    }
+                  ],
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "",
+                        "value": "",
+                        "type": "text"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n  \"email\": \"{{Agentmaildemo}}\",\r\n  \"password\": \"123456\"\r\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "http://localhost:5000/user/login",
+                      "protocol": "http",
+                      "host": [
+                        "localhost"
+                      ],
+                      "port": "5000",
+                      "path": [
+                        "user",
+                        "login"
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "Gmail_list",
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "exec": [
+                          "let jsondata = pm.response.json();\r",
+                          "let latestemail = jsondata.messages[0].id;\r",
+                          "pm.collectionVariables.set(\"emailID\",latestemail);\r",
+                          ""
+                        ],
+                        "type": "text/javascript",
+                        "packages": {},
+                        "requests": {}
+                      }
+                    }
+                  ],
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "oauth2"
+                    },
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Authorization",
+                        "value": "Bearer {{G_api}}",
+                        "type": "text"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "https://gmail.googleapis.com/gmail/v1/users/me/messages",
+                      "protocol": "https",
+                      "host": [
+                        "gmail",
+                        "googleapis",
+                        "com"
+                      ],
+                      "path": [
+                        "gmail",
+                        "v1",
+                        "users",
+                        "me",
+                        "messages"
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "Read_mail",
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "exec": [
+                          "let jsondata = pm.response.json();\r",
+                          "let snippet = jsondata.snippet;\r",
+                          "let otp = snippet.match(/\\b\\d{4}\\b/)[0];\r",
+                          "\r",
+                          "pm.collectionVariables.set(\"OTP\", otp);"
+                        ],
+                        "type": "text/javascript",
+                        "packages": {},
+                        "requests": {}
+                      }
+                    },
+                    {
+                      "listen": "prerequest",
+                      "script": {
+                        "exec": [
+                          "setTimeout(function () {}, 120000);"
+                        ],
+                        "type": "text/javascript",
+                        "packages": {},
+                        "requests": {}
+                      }
+                    }
+                  ],
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Authorization",
+                        "value": "Bearer {{G_api}}",
+                        "type": "text"
+                      }
+                    ],
+                    "url": {
+                      "raw": "https://gmail.googleapis.com/gmail/v1/users/me/messages/{{emailID}}",
+                      "protocol": "https",
+                      "host": [
+                        "gmail",
+                        "googleapis",
+                        "com"
+                      ],
+                      "path": [
+                        "gmail",
+                        "v1",
+                        "users",
+                        "me",
+                        "messages",
+                        "{{emailID}}"
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "Agent_Verify_OTP",
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "exec": [
+                          "let jsondata = pm.response.json();\r",
+                          "\r",
+                          "\r",
+                          "pm.test(\"Status code is 401\", function () {\r",
+                          "    pm.response.to.have.status(401);\r",
+                          "})\r",
+                          "\r",
+                          "pm.test(\"Response time is less than 200ms\", function () {\r",
+                          "    pm.expect(jsondata.message).to.contain(\"OTP has expired. Please login again to receive a new OTP.\");\r",
+                          "})"
+                        ],
+                        "type": "text/javascript",
+                        "packages": {},
+                        "requests": {}
+                      }
+                    }
+                  ],
+                  "request": {
+                    "method": "POST",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n    \"identifier\":\"{{Agentmaildemo}}\",\r\n    \"otp\":\"{{OTP}}\"\r\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "http://localhost:5000/user/verify-otp",
+                      "protocol": "http",
+                      "host": [
+                        "localhost"
+                      ],
+                      "port": "5000",
+                      "path": [
+                        "user",
+                        "verify-otp"
+                      ]
+                    }
+                  },
+                  "response": []
+                }
+              ]
+            },
+            {
+              "name": "Forget_Pass",
+              "item": [
+                {
+                  "name": "Forget Pass",
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "exec": [
+                          "var data = pm.response.json();\r",
+                          ""
+                        ],
+                        "type": "text/javascript",
+                        "packages": {},
+                        "requests": {}
+                      }
+                    }
+                  ],
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Authorization",
+                        "value": "Barear {{admintoken}}",
+                        "type": "text"
+                      },
+                      {
+                        "key": "X-AUTH-SECRET-KEY",
+                        "value": "ROADTOSDET",
+                        "type": "text"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n  \"email\": \"{{Agentmaildemo}}\",\r\n  \"phone_number\": \"{{AgenttNumdemo}}\"\r\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "http://localhost:5000/user/forgot-password",
+                      "protocol": "http",
+                      "host": [
+                        "localhost"
+                      ],
+                      "port": "5000",
+                      "path": [
+                        "user",
+                        "forgot-password"
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "Gmail_listt",
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "exec": [
+                          "let jsondata = pm.response.json();\r",
+                          "let latestemail = jsondata.messages[0].id;\r",
+                          "pm.collectionVariables.set(\"emailID\",latestemail);"
+                        ],
+                        "type": "text/javascript",
+                        "packages": {},
+                        "requests": {}
+                      }
+                    }
+                  ],
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "oauth2"
+                    },
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Authorization",
+                        "value": "Bearer {{G_api}}",
+                        "type": "text"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "https://gmail.googleapis.com/gmail/v1/users/me/messages",
+                      "protocol": "https",
+                      "host": [
+                        "gmail",
+                        "googleapis",
+                        "com"
+                      ],
+                      "path": [
+                        "gmail",
+                        "v1",
+                        "users",
+                        "me",
+                        "messages"
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "Read_maill",
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "exec": [
+                          "let base64Data = pm.response.json().payload.body.data;\r",
+                          "\r",
+                          "// Decode\r",
+                          "let decodedText = atob(base64Data);\r",
+                          "\r",
+                          "// Extract token\r",
+                          "let match = decodedText.match(/token=([a-f0-9]+)/);\r",
+                          "\r",
+                          "if (match) {\r",
+                          "    let token = match[1];\r",
+                          "\r",
+                          "    console.log(\"Token:\", token);\r",
+                          "\r",
+                          "    pm.collectionVariables.set(\"resetToken\", token);\r",
+                          "}"
+                        ],
+                        "type": "text/javascript",
+                        "packages": {},
+                        "requests": {}
+                      }
+                    }
+                  ],
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Authorization",
+                        "value": "Bearer {{G_api}}",
+                        "type": "text"
+                      }
+                    ],
+                    "url": {
+                      "raw": "https://gmail.googleapis.com/gmail/v1/users/me/messages/{{emailID}}",
+                      "protocol": "https",
+                      "host": [
+                        "gmail",
+                        "googleapis",
+                        "com"
+                      ],
+                      "path": [
+                        "gmail",
+                        "v1",
+                        "users",
+                        "me",
+                        "messages",
+                        "{{emailID}}"
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "Set New Pass",
+                  "request": {
+                    "method": "POST",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n  \"token\": \"{{resetToken}}\",\r\n  \"password\": \"newpass1234\",\r\n  \"confirmPassword\": \"newpass1234\"\r\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "http://localhost:5000/user/reset-password",
+                      "protocol": "http",
+                      "host": [
+                        "localhost"
+                      ],
+                      "port": "5000",
+                      "path": [
+                        "user",
+                        "reset-password"
+                      ]
+                    }
+                  },
+                  "response": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Customer",
+          "item": [
+            {
+              "name": "Successful_Login",
+              "item": [
+                {
+                  "name": "Customer1_Login",
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "",
+                        "value": "",
+                        "type": "text"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n  \"email\": \"{{Customer(1)mail}}\",\r\n  \"password\": \"123456\"\r\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "http://localhost:5000/user/login",
+                      "protocol": "http",
+                      "host": [
+                        "localhost"
+                      ],
+                      "port": "5000",
+                      "path": [
+                        "user",
+                        "login"
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "Gmail_list",
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "exec": [
+                          "var jsondata = pm.response.json();\r",
+                          "var latestemail = jsondata.messages[0].id;\r",
+                          "pm.collectionVariables.set(\"emailID\",latestemail);"
+                        ],
+                        "type": "text/javascript",
+                        "packages": {},
+                        "requests": {}
+                      }
+                    }
+                  ],
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "oauth2"
+                    },
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Authorization",
+                        "value": "Bearer {{G_api}}",
+                        "type": "text"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "https://gmail.googleapis.com/gmail/v1/users/me/messages",
+                      "protocol": "https",
+                      "host": [
+                        "gmail",
+                        "googleapis",
+                        "com"
+                      ],
+                      "path": [
+                        "gmail",
+                        "v1",
+                        "users",
+                        "me",
+                        "messages"
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "Read_mail",
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "exec": [
+                          "let jsondata = pm.response.json();\r",
+                          "let snippet = jsondata.snippet;\r",
+                          "let otp = snippet.match(/\\b\\d{4}\\b/)[0];\r",
+                          "\r",
+                          "pm.collectionVariables.set(\"OTP\", otp);"
+                        ],
+                        "type": "text/javascript",
+                        "packages": {},
+                        "requests": {}
+                      }
+                    }
+                  ],
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Authorization",
+                        "value": "Bearer {{G_api}}",
+                        "type": "text"
+                      }
+                    ],
+                    "url": {
+                      "raw": "https://gmail.googleapis.com/gmail/v1/users/me/messages/{{emailID}}",
+                      "protocol": "https",
+                      "host": [
+                        "gmail",
+                        "googleapis",
+                        "com"
+                      ],
+                      "path": [
+                        "gmail",
+                        "v1",
+                        "users",
+                        "me",
+                        "messages",
+                        "{{emailID}}"
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "Custome_1_Verify_OTP",
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "exec": [
+                          "let jsondata = pm.response.json();\r",
+                          "let token = jsondata.token;\r",
+                          "pm.collectionVariables.set(\"customertoken1\", token);"
+                        ],
+                        "type": "text/javascript",
+                        "packages": {},
+                        "requests": {}
+                      }
+                    }
+                  ],
+                  "request": {
+                    "method": "POST",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n    \"identifier\":\"{{Customer(1)mail}}\",\r\n    \"otp\":\"{{OTP}}\"\r\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "http://localhost:5000/user/verify-otp",
+                      "protocol": "http",
+                      "host": [
+                        "localhost"
+                      ],
+                      "port": "5000",
+                      "path": [
+                        "user",
+                        "verify-otp"
+                      ]
+                    }
+                  },
+                  "response": []
+                }
+              ]
+            },
+            {
+              "name": "Successful_Login_2",
+              "item": [
+                {
+                  "name": "Customer2_Login",
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "",
+                        "value": "",
+                        "type": "text"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n  \"email\": \"{{Customer(2)mail}}\",\r\n  \"password\": \"123456\"\r\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "http://localhost:5000/user/login",
+                      "protocol": "http",
+                      "host": [
+                        "localhost"
+                      ],
+                      "port": "5000",
+                      "path": [
+                        "user",
+                        "login"
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "Gmail_list",
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "exec": [
+                          "var jsondata = pm.response.json();\r",
+                          "var latestemail = jsondata.messages[0].id;\r",
+                          "pm.collectionVariables.set(\"emailID\",latestemail);"
+                        ],
+                        "type": "text/javascript",
+                        "packages": {},
+                        "requests": {}
+                      }
+                    }
+                  ],
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "oauth2"
+                    },
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Authorization",
+                        "value": "Bearer {{G_api}}",
+                        "type": "text"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "https://gmail.googleapis.com/gmail/v1/users/me/messages",
+                      "protocol": "https",
+                      "host": [
+                        "gmail",
+                        "googleapis",
+                        "com"
+                      ],
+                      "path": [
+                        "gmail",
+                        "v1",
+                        "users",
+                        "me",
+                        "messages"
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "Read_mail",
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "exec": [
+                          "let jsondata = pm.response.json();\r",
+                          "let snippet = jsondata.snippet;\r",
+                          "let otp = snippet.match(/\\b\\d{4}\\b/)[0];\r",
+                          "\r",
+                          "pm.collectionVariables.set(\"OTP\", otp);"
+                        ],
+                        "type": "text/javascript",
+                        "packages": {},
+                        "requests": {}
+                      }
+                    }
+                  ],
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Authorization",
+                        "value": "Bearer {{G_api}}",
+                        "type": "text"
+                      }
+                    ],
+                    "url": {
+                      "raw": "https://gmail.googleapis.com/gmail/v1/users/me/messages/{{emailID}}",
+                      "protocol": "https",
+                      "host": [
+                        "gmail",
+                        "googleapis",
+                        "com"
+                      ],
+                      "path": [
+                        "gmail",
+                        "v1",
+                        "users",
+                        "me",
+                        "messages",
+                        "{{emailID}}"
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "Custome_2_Verify_OTP",
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "exec": [
+                          "let jsondata = pm.response.json();\r",
+                          "let token = jsondata.token;\r",
+                          "pm.collectionVariables.set(\"customertoken2\", token);"
+                        ],
+                        "type": "text/javascript",
+                        "packages": {},
+                        "requests": {}
+                      }
+                    }
+                  ],
+                  "request": {
+                    "method": "POST",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n    \"identifier\":\"{{Customer(2)mail}}\",\r\n    \"otp\":\"{{OTP}}\"\r\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "http://localhost:5000/user/verify-otp",
+                      "protocol": "http",
+                      "host": [
+                        "localhost"
+                      ],
+                      "port": "5000",
+                      "path": [
+                        "user",
+                        "verify-otp"
+                      ]
+                    }
+                  },
+                  "response": []
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "System Login",
+      "item": [
+        {
+          "name": "System Login",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "var data = pm.response.json();\r",
+                  "var systoken = data.token;\r",
+                  "pm.collectionVariables.set(\"systemtoken\",systoken); \r",
+                  "\r",
+                  "pm.test(\"Invalid user\", ()=>{\r",
+                  "    pm.expect(data.message).to.contain(\"User not found\");\r",
+                  "})\r",
+                  "pm.test(\"Status code is 404\", function () {\r",
+                  "    pm.response.to.have.status(404);\r",
+                  "})"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"email\": \"Admin\",\r\n  \"password\": \"1234\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:5000/user/login",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "user",
+                "login"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "System Successful Login",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "var data = pm.response.json();\r",
+                  "var systoken = data.token;\r",
+                  "pm.collectionVariables.set(\"systemtoken\",systoken); \r",
+                  "\r",
+                  "pm.test(\"Login Successful\", ()=>{\r",
+                  "    pm.expect(data.message).to.contain(\"Login successful\");\r",
+                  "})\r",
+                  "pm.test(\"Status code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "})"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"email\": \"SYSTEM\",\r\n  \"password\": \"1234\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:5000/user/login",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "user",
+                "login"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "System Login with wrong pass",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "var data = pm.response.json();\r",
+                  "\r",
+                  "\r",
+                  "pm.test(\"Incorrect pass\", ()=>{\r",
+                  "    pm.expect(data.message).to.contain(\"Password incorrect\");\r",
+                  "})\r",
+                  "pm.test(\"Status code is 401\", function () {\r",
+                  "    pm.response.to.have.status(401);\r",
+                  "})"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"email\": \"SYSTEM\",\r\n  \"password\": \"12349\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:5000/user/login",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "user",
+                "login"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Transaction",
+      "item": [
+        {
+          "name": "System_to_Agent",
+          "item": [
+            {
+              "name": "Successful_deposite",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "var data = pm.response.json();\r",
+                      "pm.test(\"Successful transit\",()=>{\r",
+                      "    pm.expect(data.message).to.contain(\"SYSTEM deposit to Agent successful\")\r",
+                      "})\r",
+                      "pm.test(\"201\",()=>{\r",
+                      "    pm.response.to.have.status(201)\r",
+                      "})"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "X-AUTH-SECRET-KEY",
+                    "value": "ROADTOSDET",
+                    "type": "text"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{systemtoken}}",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"from_account\": \"SYSTEM\",\r\n  \"to_account\": \"{{AgenttNum}}\",\r\n  \"amount\": 5000\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:5000/transaction/deposit",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "5000",
+                  "path": [
+                    "transaction",
+                    "deposit"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Unathorized Deposite",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "var data = pm.response.json();\r",
+                      "pm.test(\"Token Missing\",()=>{\r",
+                      "    pm.expect(data.message).to.contain(\"No Token Found!\")\r",
+                      "})\r",
+                      "pm.test(\"401\",()=>{\r",
+                      "    pm.response.to.have.status(401)\r",
+                      "})"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "X-AUTH-SECRET-KEY",
+                    "value": "ROADTOSDET",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"from_account\": \"SYSTEM\",\r\n  \"to_account\": \"{{AgenttNum}}\",\r\n  \"amount\": 5000\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:5000/transaction/deposit",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "5000",
+                  "path": [
+                    "transaction",
+                    "deposit"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Try to deposite minimum amout",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "var data = pm.response.json();\r",
+                      "pm.test(\"Invalid amount . Must be greater than 0\",()=>{\r",
+                      "    pm.expect(data.message).to.contain(\"Amount must be a valid number greater than 0\")\r",
+                      "})\r",
+                      "pm.test(\"400 Bad Request\",()=>{\r",
+                      "    pm.response.to.have.status(400)\r",
+                      "})"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "X-AUTH-SECRET-KEY",
+                    "value": "ROADTOSDET",
+                    "type": "text"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{systemtoken}}",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"from_account\": \"SYSTEM\",\r\n  \"to_account\": \"{{AgenttNum}}\",\r\n  \"amount\": 0\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:5000/transaction/deposit",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "5000",
+                  "path": [
+                    "transaction",
+                    "deposit"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Try to deposite maximum amout",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "var data = pm.response.json();\r",
+                      "pm.test(\"System account balance droped\",()=>{\r",
+                      "    pm.expect(data.message).to.contain(\"SYSTEM account has insufficient balance\")\r",
+                      "})\r",
+                      "pm.test(\"208 \",()=>{\r",
+                      "    pm.response.to.have.status(208)\r",
+                      "})"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "X-AUTH-SECRET-KEY",
+                    "value": "ROADTOSDET",
+                    "type": "text"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{systemtoken}}",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"from_account\": \"SYSTEM\",\r\n  \"to_account\": \"{{AgenttNum}}\",\r\n  \"amount\": 10000000\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:5000/transaction/deposit",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "5000",
+                  "path": [
+                    "transaction",
+                    "deposit"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "System try to deposit customer",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "var data = pm.response.json();\r",
+                      "pm.test(\"System can only deposit regular agent\",()=>{\r",
+                      "    pm.expect(data.message).to.contain(\"SYSTEM account can only deposit to a regular Agent account. Customer and Merchant accounts are not allowed.\")\r",
+                      "})"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "X-AUTH-SECRET-KEY",
+                    "value": "ROADTOSDET",
+                    "type": "text"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{systemtoken}}",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"from_account\": \"SYSTEM\",\r\n  \"to_account\": \"{{Customer(1)phone}}\",\r\n  \"amount\": 5000\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:5000/transaction/deposit",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "5000",
+                  "path": [
+                    "transaction",
+                    "deposit"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "System try to deposit inactive acount",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "var data = pm.response.json();\r",
+                      "pm.test(\"System can only deposit regular agent\",()=>{\r",
+                      "    pm.expect(data.message).to.contain(\"To account is not active. Please contact admin\")\r",
+                      "})\r",
+                      "pm.test(\"403 Forbidden\",()=>{\r",
+                      "    pm.response.to.have.status(403)\r",
+                      "})"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "X-AUTH-SECRET-KEY",
+                    "value": "ROADTOSDET",
+                    "type": "text"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{systemtoken}}",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"from_account\": \"SYSTEM\",\r\n  \"to_account\": \"{{AgenttNumdemo}}\",\r\n  \"amount\": 5000\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:5000/transaction/deposit",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "5000",
+                  "path": [
+                    "transaction",
+                    "deposit"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "System try to deposit invalid account",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "var data = pm.response.json();\r",
+                      "pm.test(\"Account dose not exist\",()=>{\r",
+                      "    pm.expect(data.message).to.contain(\"To Account does not exist\")\r",
+                      "})\r",
+                      "pm.test(\"404 Not Found\",()=>{\r",
+                      "    pm.response.to.have.status(404);\r",
+                      "})"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "X-AUTH-SECRET-KEY",
+                    "value": "ROADTOSDET",
+                    "type": "text"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{systemtoken}}",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"from_account\": \"SYSTEM\",\r\n  \"to_account\": \"01777777777\",\r\n  \"amount\": 5000\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:5000/transaction/deposit",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "5000",
+                  "path": [
+                    "transaction",
+                    "deposit"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Agent to Customer",
+          "item": [
+            {
+              "name": "Successful_deposite",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "var data = pm.response.json();\r",
+                      "pm.test(\"Deposit successful\",()=>{\r",
+                      "    pm.expect(data.message).to.contain(\"Deposit successful\")\r",
+                      "})\r",
+                      "pm.test(\"201\",()=>{\r",
+                      "    pm.response.to.have.status(201)\r",
+                      "})"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "X-AUTH-SECRET-KEY",
+                    "value": "ROADTOSDET",
+                    "type": "text"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{agenttoken}}",
+                    "type": "text"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{customertoken1}}",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"from_account\": \"{{AgenttNum}}\",\r\n  \"to_account\": \"{{Customer(1)phone}}\",\r\n  \"amount\": 2000\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:5000/transaction/deposit",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "5000",
+                  "path": [
+                    "transaction",
+                    "deposit"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Try to deposit withoutany token",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "var data = pm.response.json();\r",
+                      "pm.test(\"No token Found\",()=>{\r",
+                      "    pm.expect(data.message).to.contain(\"No Token Found!\")\r",
+                      "})\r",
+                      "pm.test(\"401\",()=>{\r",
+                      "    pm.response.to.have.status(401)\r",
+                      "})"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "X-AUTH-SECRET-KEY",
+                    "value": "ROADTOSDET",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"from_account\": \"{{AgenttNum}}\",\r\n  \"to_account\": \"{{Customer(1)phone}}\",\r\n  \"amount\": 5000\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:5000/transaction/deposit",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "5000",
+                  "path": [
+                    "transaction",
+                    "deposit"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Try to deposite without customer token",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "var data = pm.response.json();\r",
+                      "pm.test(\"Deposit successful\",()=>{\r",
+                      "    pm.expect(data.message).to.contain(\"Deposit successful\")\r",
+                      "})\r",
+                      "pm.test(\"201\",()=>{\r",
+                      "    pm.response.to.have.status(201)\r",
+                      "})"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "X-AUTH-SECRET-KEY",
+                    "value": "ROADTOSDET",
+                    "type": "text"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{agenttoken}}",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"from_account\": \"{{AgenttNum}}\",\r\n  \"to_account\": \"{{Customer(1)phone}}\",\r\n  \"amount\": 100\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:5000/transaction/deposit",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "5000",
+                  "path": [
+                    "transaction",
+                    "deposit"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Try to deposite without agent token",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "var data = pm.response.json();\r",
+                      "pm.test(\"Unauthorized Deposite\",()=>{\r",
+                      "    pm.expect(data.message).to.contain(\"Unauthorized: you can only initiate transactions from your own account\")\r",
+                      "})\r",
+                      "pm.test(\"403\",()=>{\r",
+                      "    pm.response.to.have.status(403)\r",
+                      "})"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "X-AUTH-SECRET-KEY",
+                    "value": "ROADTOSDET",
+                    "type": "text"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{customertoken1}}",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"from_account\": \"{{AgenttNum}}\",\r\n  \"to_account\": \"{{Customer(1)phone}}\",\r\n  \"amount\": 100\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:5000/transaction/deposit",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "5000",
+                  "path": [
+                    "transaction",
+                    "deposit"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Try to deposite minimum amout",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "var data = pm.response.json();\r",
+                      "pm.test(\"Minimum amount\",()=>{\r",
+                      "    pm.expect(data.message).to.contain(\"Minimum deposit amount is 10 tk and maximum deposit amount is 10000 tk\")\r",
+                      "})\r",
+                      "pm.test(\"400 Bad Request\",()=>{\r",
+                      "    pm.response.to.have.status(400)\r",
+                      "})"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "X-AUTH-SECRET-KEY",
+                    "value": "ROADTOSDET",
+                    "type": "text"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{agenttoken}}",
+                    "type": "text"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{customertoken1}}",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"from_account\": \"{{AgenttNum}}\",\r\n  \"to_account\": \"{{Customer(1)phone}}\",\r\n  \"amount\": 9\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:5000/transaction/deposit",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "5000",
+                  "path": [
+                    "transaction",
+                    "deposit"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Try to deposite more than balance",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "var data = pm.response.json();\r",
+                      "pm.test(\"Exceed Balance limit\",()=>{\r",
+                      "    pm.expect(data.message).to.contain(\"Minimum deposit amount is 10 tk and maximum deposit amount is 10000 tk\")\r",
+                      "})\r",
+                      "pm.test(\"400 \",()=>{\r",
+                      "    pm.response.to.have.status(400)\r",
+                      "})"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "X-AUTH-SECRET-KEY",
+                    "value": "ROADTOSDET",
+                    "type": "text"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{agenttoken}}",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"from_account\": \"{{AgenttNum}}\",\r\n  \"to_account\": \"{{Customer(1)phone}}\",\r\n  \"amount\": 100000000\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:5000/transaction/deposit",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "5000",
+                  "path": [
+                    "transaction",
+                    "deposit"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Try to deposite invalid amount",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "var data = pm.response.json();\r",
+                      "pm.test(\"Invalid Amount\",()=>{\r",
+                      "    pm.expect(data.message).to.contain(\"Amount must be a valid number greater than 0\")\r",
+                      "})\r",
+                      "pm.test(\"400 \",()=>{\r",
+                      "    pm.response.to.have.status(400)\r",
+                      "})"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "X-AUTH-SECRET-KEY",
+                    "value": "ROADTOSDET",
+                    "type": "text"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{agenttoken}}",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"from_account\": \"{{AgenttNum}}\",\r\n  \"to_account\": \"{{Customer(1)phone}}\",\r\n  \"amount\": 0\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:5000/transaction/deposit",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "5000",
+                  "path": [
+                    "transaction",
+                    "deposit"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Agent try to deposit invalid account",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "var data = pm.response.json();\r",
+                      "pm.test(\"Account dose not exist\",()=>{\r",
+                      "    pm.expect(data.message).to.contain(\"To Account does not exist\")\r",
+                      "})\r",
+                      "pm.test(\"404 Not Found\",()=>{\r",
+                      "    pm.response.to.have.status(404);\r",
+                      "})"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "X-AUTH-SECRET-KEY",
+                    "value": "ROADTOSDET",
+                    "type": "text"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{systemtoken}}",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"from_account\": \"{{AgenttNum}}\",\r\n  \"to_account\": \"01777777777\",\r\n  \"amount\": 5000\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:5000/transaction/deposit",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "5000",
+                  "path": [
+                    "transaction",
+                    "deposit"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Customer_1 to Customer_2",
+          "item": [
+            {
+              "name": "Try to sendmoney invalid account",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "var data = pm.response.json();\r",
+                      "pm.test(\"Account Does not exist\",()=>{\r",
+                      "    pm.expect(data.message).to.contain(\"To Account does not exist\")\r",
+                      "})\r",
+                      "pm.test(\"404\",()=>{\r",
+                      "    pm.response.to.have.status(404)\r",
+                      "})"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{customertoken1}}",
+                    "type": "text"
+                  },
+                  {
+                    "key": "X-AUTH-SECRET-KEY",
+                    "value": "ROADTOSDET",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"from_account\": \"{{Customer(1)phone}}\",\r\n  \"to_account\": \"{{01777777777}}\",\r\n  \"amount\": 500\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:5000/transaction/deposit",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "5000",
+                  "path": [
+                    "transaction",
+                    "deposit"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Send Money To Another Customer",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "var data = pm.response.json();\r",
+                      "pm.test(\"Successful transit\",()=>{\r",
+                      "    pm.expect(data.message).to.contain(\"Send money successful\")\r",
+                      "})\r",
+                      "pm.test(\"201\",()=>{\r",
+                      "    pm.response.to.have.status(201)\r",
+                      "})"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{customertoken1}}",
+                    "type": "text"
+                  },
+                  {
+                    "key": "X-AUTH-SECRET-KEY",
+                    "value": "ROADTOSDET",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"from_account\": \"{{Customer(1)phone}}\",\r\n  \"to_account\": \"{{Customer(2)phone}}\",\r\n  \"amount\": 1000\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:5000/transaction/sendmoney",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "5000",
+                  "path": [
+                    "transaction",
+                    "sendmoney"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Try to sendmoney Without Secret Key",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "var data = pm.response.json();\r",
+                      "pm.test(\"Secret key failure\",()=>{\r",
+                      "    pm.expect(data.message).to.contain(\"Secret auth key validation failure!\")\r",
+                      "})\r",
+                      "pm.test(\"401\",()=>{\r",
+                      "    pm.response.to.have.status(401)\r",
+                      "})"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{customertoken1}}",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"from_account\": \"{{Customer(1)phone}}\",\r\n  \"to_account\": \"{{Customer(2)phone}}\",\r\n  \"amount\": 500\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:5000/transaction/sendmoney",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "5000",
+                  "path": [
+                    "transaction",
+                    "sendmoney"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Try to sendmoney Without Token",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "var data = pm.response.json();\r",
+                      "pm.test(\"Token Missing\",()=>{\r",
+                      "    pm.expect(data.message).to.contain(\"No Token Found!\")\r",
+                      "})\r",
+                      "pm.test(\"401\",()=>{\r",
+                      "    pm.response.to.have.status(401)\r",
+                      "})"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "X-AUTH-SECRET-KEY",
+                    "value": "ROADTOSDTE",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"from_account\": \"{{Customer(1)phone}}\",\r\n  \"to_account\": \"{{Customer(2)phone}}\",\r\n  \"amount\": 500\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:5000/transaction/sendmoney",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "5000",
+                  "path": [
+                    "transaction",
+                    "sendmoney"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Try to deposit to customer",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "var data = pm.response.json();\r",
+                      "pm.test(\"Invalid endpoint\",()=>{\r",
+                      "    pm.expect(data.message).to.contain(\"Invalid from account. Only an Agent or the SYSTEM account can initiate a deposit\")\r",
+                      "})\r",
+                      "pm.test(\"400\",()=>{\r",
+                      "    pm.response.to.have.status(400)\r",
+                      "})"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "X-AUTH-SECRET-KEY",
+                    "value": "ROADTOSDET",
+                    "type": "text"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{customertoken1}}",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"from_account\": \"{{Customer(1)phone}}\",\r\n  \"to_account\": \"{{Customer(2)phone}}\",\r\n  \"amount\": 500\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:5000/transaction/deposit",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "5000",
+                  "path": [
+                    "transaction",
+                    "deposit"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Withdraw From Agent",
+          "item": [
+            {
+              "name": "Missing Authorization token",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "var data = pm.response.json();\r",
+                      "pm.test(\"Token Missing\",()=>{\r",
+                      "    pm.expect(data.message).to.contain(\"No Token Found!\")\r",
+                      "})\r",
+                      "pm.test(\"401\",()=>{\r",
+                      "    pm.response.to.have.status(401)\r",
+                      "})"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "X-AUTH-SECRET-KEY",
+                    "value": "ROADTOSDTE",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"from_account\": \"{{AgenttNum}}\",\r\n  \"to_account\": \"{{Customer(2)phone}}\",\r\n  \"amount\": 500\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:5000/transaction/withdraw",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "5000",
+                  "path": [
+                    "transaction",
+                    "withdraw"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Missing Secret Key token",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "var data = pm.response.json();\r",
+                      "pm.test(\"Token Missing\",()=>{\r",
+                      "    pm.expect(data.message).to.contain(\"Secret auth key validation failure!\")\r",
+                      "})\r",
+                      "pm.test(\"401\",()=>{\r",
+                      "    pm.response.to.have.status(401)\r",
+                      "})"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{agenttoken}}",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"from_account\": \"{{AgenttNum}}\",\r\n  \"to_account\": \"{{Customer(2)phone}}\",\r\n  \"amount\": 500\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:5000/transaction/withdraw",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "5000",
+                  "path": [
+                    "transaction",
+                    "withdraw"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Invalid from/to",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "var data = pm.response.json();\r",
+                      "pm.test(\"fromAc/toAc is invalid\",()=>{\r",
+                      "    pm.expect(data.message).to.contain(\"fromAc/toAc is invalid\")\r",
+                      "})\r",
+                      "pm.test(\"400\",()=>{\r",
+                      "    pm.response.to.have.status(400)\r",
+                      "})"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{agenttoken}}",
+                    "type": "text"
+                  },
+                  {
+                    "key": "X-AUTH-SECRET-KEY",
+                    "value": "ROADTOSDET",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"from_account\": \"{{AgenttNum}}\",\r\n  \"to_account\": \"{{Customer(2)phone}}\",\r\n  \"amount\": 500\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:5000/transaction/withdraw",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "5000",
+                  "path": [
+                    "transaction",
+                    "withdraw"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Succsessful Withdraw",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "var data = pm.response.json();\r",
+                      "pm.test(\"Successful transit\",()=>{\r",
+                      "    pm.expect(data.message).to.contain(\"Withdraw successful\")\r",
+                      "})\r",
+                      "pm.test(\"201\",()=>{\r",
+                      "    pm.response.to.have.status(201)\r",
+                      "})"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{customertoken2}}",
+                    "type": "text"
+                  },
+                  {
+                    "key": "X-AUTH-SECRET-KEY",
+                    "value": "ROADTOSDET",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"from_account\": \"{{Customer(2)phone}}\",\r\n  \"to_account\": \"{{AgenttNum}}\",\r\n  \"amount\": 500\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:5000/transaction/withdraw",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "5000",
+                  "path": [
+                    "transaction",
+                    "withdraw"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Insufficient Balance",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "var data = pm.response.json();\r",
+                      "pm.test(\"Transit Fail\",()=>{\r",
+                      "    pm.expect(data.message).to.contain(\"Insufficient balance\")\r",
+                      "})\r",
+                      "pm.test(\"208\",()=>{\r",
+                      "    pm.response.to.have.status(208)\r",
+                      "})"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{customertoken2}}",
+                    "type": "text"
+                  },
+                  {
+                    "key": "X-AUTH-SECRET-KEY",
+                    "value": "ROADTOSDET",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"from_account\": \"{{Customer(2)phone}}\",\r\n  \"to_account\": \"{{AgenttNum}}\",\r\n  \"amount\": 1000\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:5000/transaction/withdraw",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "5000",
+                  "path": [
+                    "transaction",
+                    "withdraw"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Daily_Limit_Exceed",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "var data = pm.response.json();\r",
+                      "pm.test(\"Amount Limit Exceed\",()=>{\r",
+                      "    pm.expect(data.message).to.contain(\"Daily amount limit exceeded\")\r",
+                      "})\r",
+                      "pm.test(\"400\",()=>{\r",
+                      "    pm.response.to.have.status(400)\r",
+                      "})"
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{customertoken2}}",
+                    "type": "text"
+                  },
+                  {
+                    "key": "X-AUTH-SECRET-KEY",
+                    "value": "ROADTOSDET",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"from_account\": \"{{Customer(2)phone}}\",\r\n  \"to_account\": \"{{AgenttNum}}\",\r\n  \"amount\": 10000\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:5000/transaction/withdraw",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "5000",
+                  "path": [
+                    "transaction",
+                    "withdraw"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "admintoken",
+      "value": ""
+    },
+    {
+      "key": "ID",
+      "value": ""
+    },
+    {
+      "key": "Phone",
+      "value": ""
+    },
+    {
+      "key": "MarchantID(1)",
+      "value": ""
+    },
+    {
+      "key": "Marchantmail(1)",
+      "value": ""
+    },
+    {
+      "key": "MarchantNum(1)",
+      "value": ""
+    },
+    {
+      "key": "AgentID",
+      "value": ""
+    },
+    {
+      "key": "Agentmail",
+      "value": ""
+    },
+    {
+      "key": "AgenttNum",
+      "value": ""
+    },
+    {
+      "key": "Customer(2)ID",
+      "value": ""
+    },
+    {
+      "key": "Customer(2)mail",
+      "value": ""
+    },
+    {
+      "key": "Customer(2)phone",
+      "value": ""
+    },
+    {
+      "key": "Customer(1)ID",
+      "value": ""
+    },
+    {
+      "key": "Customer(1)mail",
+      "value": ""
+    },
+    {
+      "key": "Customer(1)phone",
+      "value": ""
+    },
+    {
+      "key": "G_api",
+      "value": ""
+    },
+    {
+      "key": "emailID",
+      "value": ""
+    },
+    {
+      "key": "OTP",
+      "value": ""
+    },
+    {
+      "key": "agenttoken",
+      "value": ""
+    },
+    {
+      "key": "resetToken",
+      "value": ""
+    },
+    {
+      "key": "systemtoken",
+      "value": ""
+    },
+    {
+      "key": "Agentdemo",
+      "value": ""
+    },
+    {
+      "key": "Agentmaildemo",
+      "value": ""
+    },
+    {
+      "key": "AgenttNumdemo",
+      "value": ""
+    },
+    {
+      "key": "customertoken1",
+      "value": ""
+    },
+    {
+      "key": "customertoken2",
+      "value": ""
+    }
+  ]
+}
