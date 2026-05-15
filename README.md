@@ -32,9 +32,10 @@ The project also supports command-line execution using Newman for CI/CD integrat
 Postman published documentation:[Documentation](https://documenter.getpostman.com/view/52925547/2sBXqQFHkL)
 
 
-2. ## 🧾 Test Cases :[Test_Case_Document](https://docs.google.com/spreadsheets/d/1LP3woIQPpDCe4W9cZ3WS52WcOiDOZbFV/edit?usp=sharing&ouid=114831411539983234280&rtpof=true&sd=true)
+2. ## 🧾 Test Cases
+Test Cases here:[Test_Case_Document](https://docs.google.com/spreadsheets/d/1LP3woIQPpDCe4W9cZ3WS52WcOiDOZbFV/edit?usp=sharing&ouid=114831411539983234280&rtpof=true&sd=true)
 
-3. ## Report
+4. ## Report
 
 
 ![Test Result](./Output/image1.png)
