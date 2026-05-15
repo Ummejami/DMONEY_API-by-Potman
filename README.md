@@ -8,12 +8,11 @@ The project also supports command-line execution using Newman for CI/CD integrat
 ---
 
 ##  Features
-- 🔐 User Login & Authentication
+- 🔐 Admin,System,User Login(Agent,Customer) & Authentication
 - 📧 Email Verification & OTP Validation
 - 💸 Send Money
-- 🏦 Cash-In (Bank/Stripe)
+- 💸 Deposit Money
 - 💵 Withdraw from Agent
-- 🛍️ Payment to Merchant
 - 🔁 Environment & Collection Variables
 - ✅ Automated Test Scripts (Assertions)
 - ⏱️ Delay handling for OTP expiry testing
@@ -45,4 +44,25 @@ Test cases here:
 ![Test Result](./Output/image1.png)
 ![Test Result](./Output/image2.png)
    
+---
+## ▶️ How to Run
 
+Follow the steps below to run the project locally:
+
+### Clone the Repository
+```bash
+git clone https://github.com/Ummejami/DMONEY_API-by-Potman.git
+cd DMONEY_API-by-Potman
+```
+### Install Dependencies
+```bash
+npm install
+```
+### Configure Environment Variable
+1. Create a .env file in the project root directory
+2. Add necessary environment variables (G_API)
+
+### Run The Test
+```bash
+npm test
+```
